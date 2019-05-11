@@ -1,12 +1,14 @@
 import React from 'react';
-import { Icon } from 'expo';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
 export default class TabBarIcon extends React.Component {
   render() {
+    const IconComponent = getIconComponent(this.props.name)
+
     return (
-      <Icon.Ionicons
+      <IconComponent
         name={this.props.name}
         size={26}
         style={{ marginBottom: -3 }}
@@ -14,4 +16,11 @@ export default class TabBarIcon extends React.Component {
       />
     );
   }
+}
+
+const getIconComponent = (name) => {
+  if (name.match('cards')) {
+    return MaterialCommunityIcons;
+  }
+  return Ionicons;
 }
