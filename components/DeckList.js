@@ -6,14 +6,12 @@ import DeckListEmpty from "./DeckListEmpty";
 
 export default class DeckList extends Component {
   goToDeckPage() {
-    alert("go to deck page");
+    console.log('go to deck page');
   }
 
   renderItem({ item }) {
     return (
-      <TouchableOpacity onPress={this.goToDeckPage}>
-        <DeckItem deck={item} />
-      </TouchableOpacity>
+      <DeckItem deck={item} onPress={() => this.goToDeckPage()} />
     );
   }
 
@@ -24,7 +22,7 @@ export default class DeckList extends Component {
       <View>
         <FlatList
           data={Object.values(decks || {})}
-          renderItem={this.renderItem.bind(this)}
+          renderItem={(obj) => this.renderItem(obj)}
           keyExtractor={item => item.key.toString()}
           ListEmptyComponent={() => <DeckListEmpty />}
         />
