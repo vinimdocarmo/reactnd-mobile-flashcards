@@ -1,0 +1,1 @@
+export const DECK_LIST_KEY = 'DECK_LIST_KEY';

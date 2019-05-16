@@ -8,7 +8,7 @@ export default class DeckItem extends Component {
     return (
       <View style={[styles.center, styles.container]}>
         <Text style={styles.title}>{deck.title}</Text>
-        <Text>{deck.cardCount + ' ' + (deck.cardCount > 1 ? 'cards' : 'card')}</Text>
+        <Text>{deck.cards.length + ' ' + (deck.cards.lenght > 1 ? 'cards' : 'card')}</Text>
       </View>
     )
   }

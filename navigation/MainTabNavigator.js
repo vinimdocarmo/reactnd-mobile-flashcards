@@ -7,22 +7,18 @@ import {
 import TabBarIcon from "../components/TabBarIcon";
 import LinksScreen from "../screens/LinksScreen";
 import DeckListScreen from "../screens/DeckListScreen";
-import NewDeckListScreen from "../screens/NewDeckListScreen";
+import NewDeckScreen from "../screens/NewDeckScreen";
 
-const DeckStack = createStackNavigator({
-  Deck: DeckListScreen
-});
+const DeckListStack = createStackNavigator({ DeckListScreen });
 
-DeckStack.navigationOptions = {
+DeckListStack.navigationOptions = {
   tabBarLabel: "Decks",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={`cards${focused ? "" : "-outline"}`} />
   )
 };
 
-const NewDeckStack = createStackNavigator({
-  NewDeck: NewDeckListScreen
-});
+const NewDeckStack = createStackNavigator({ NewDeckScreen });
 
 NewDeckStack.navigationOptions = {
   tabBarLabel: "New Deck",
@@ -34,19 +30,7 @@ NewDeckStack.navigationOptions = {
   )
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: "Links",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={"ios-link"} />
-  )
-};
-
 export default createBottomTabNavigator({
-  DeckStack,
-  NewDeckStack,
-  LinksStack
+  DeckListStack,
+  NewDeckStack
 });

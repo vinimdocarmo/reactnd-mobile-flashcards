@@ -1,33 +1,38 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
-import DeskList from "../components/DeskList";
+import DeckList from "../components/DeckList";
+import { getAllDecks } from "../api";
+import { withNavigationFocus } from "react-navigation";
 
-export default class DeckListScreen extends Component {
+class DeckListScreen extends Component {
+  state = { decks: {} };
+
+  componentDidMount() {
+    this.syncDeckList();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isFocused !== this.props.isFocused) {
+      this.syncDeckList();
+    }
+  }
+
+  syncDeckList() {
+    getAllDecks().then(decks => this.setState({ decks }));
+  }
+
   render() {
-    const decks = [
-      { id: 1, title: "React", cardCount: 5 },
-      { id: 2, title: "React Native", cardCount: 3 },
-      { id: 3, title: "Vue.js", cardCount: 1 },
-      { id: 4, title: "React", cardCount: 5 },
-      { id: 5, title: "React Native", cardCount: 3 },
-      { id: 6, title: "Vue.js", cardCount: 1 },
-      { id: 7, title: "React", cardCount: 5 },
-      { id: 8, title: "React Native", cardCount: 3 },
-      { id: 9, title: "Vue.js", cardCount: 1 },
-      { id: 10, title: "React", cardCount: 5 },
-      { id: 11, title: "React Native", cardCount: 3 },
-      { id: 12, title: "Vue.js", cardCount: 1 },
-      { id: 13, title: "React", cardCount: 5 },
-      { id: 14, title: "React Native", cardCount: 3 },
-      { id: 15, title: "Vue.js", cardCount: 1 }
-    ];
+    const { decks } = this.state;
+
     return (
       <View style={styles.container}>
-        <DeskList decks={decks} />
+        <DeckList decks={decks} />
       </View>
     );
   }
 }
+
+export default withNavigationFocus(DeckListScreen);
 
 const styles = StyleSheet.create({
   container: {

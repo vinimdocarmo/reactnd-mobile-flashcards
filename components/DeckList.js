@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import DeckItem from "./DeckItem";
 import { FlatList } from "react-native-gesture-handler";
+import DeckListEmpty from "./DeckListEmpty";
 
 export default class DeckList extends Component {
   goToDeckPage() {
@@ -22,9 +23,10 @@ export default class DeckList extends Component {
     return (
       <View>
         <FlatList
-          data={decks}
+          data={Object.values(decks || {})}
           renderItem={this.renderItem.bind(this)}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.key.toString()}
+          ListEmptyComponent={() => <DeckListEmpty />}
         />
       </View>
     );
