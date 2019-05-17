@@ -1,18 +1,17 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View } from "react-native";
 import DeckItem from "./DeckItem";
 import { FlatList } from "react-native-gesture-handler";
 import DeckListEmpty from "./DeckListEmpty";
+import { withNavigation } from "react-navigation";
 
-export default class DeckList extends Component {
-  goToDeckPage() {
-    console.log('go to deck page');
+class DeckList extends Component {
+  goToDeckPage(deckKey) {
+    this.props.navigation.navigate("DeckScreen", { deckKey });
   }
 
   renderItem({ item }) {
-    return (
-      <DeckItem deck={item} onPress={() => this.goToDeckPage()} />
-    );
+    return <DeckItem deck={item} onPress={() => this.goToDeckPage(item.key)} />;
   }
 
   render() {
@@ -22,7 +21,7 @@ export default class DeckList extends Component {
       <View>
         <FlatList
           data={Object.values(decks || {})}
-          renderItem={(obj) => this.renderItem(obj)}
+          renderItem={obj => this.renderItem(obj)}
           keyExtractor={item => item.key.toString()}
           ListEmptyComponent={() => <DeckListEmpty />}
         />
@@ -30,3 +29,5 @@ export default class DeckList extends Component {
     );
   }
 }
+
+export default withNavigation(DeckList);

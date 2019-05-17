@@ -4,7 +4,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Text,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 import { addDeck } from "../api";
 
@@ -18,9 +18,9 @@ export default class NewDeckScreen extends React.Component {
   }
 
   async handleAddClick() {
-    await addDeck({ title: this.state.title });
-    alert('New deck created! ');
-    this.props.navigation.navigate('DeckListScreen');
+    const createdDeck = await addDeck({ title: this.state.title });
+    alert("New deck created! ");
+    this.props.navigation.navigate("DeckScreen", { deckKey: createdDeck.key });
   }
 
   render() {
@@ -32,7 +32,10 @@ export default class NewDeckScreen extends React.Component {
           value={this.state.title}
           onChangeText={this.handleTitleChange.bind(this)}
         />
-        <TouchableOpacity style={styles.button} onPress={this.handleAddClick.bind(this)}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.handleAddClick.bind(this)}
+        >
           <Text style={styles.buttonText}>Add Desk</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
