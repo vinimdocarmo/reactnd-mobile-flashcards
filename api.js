@@ -13,7 +13,7 @@ export async function getDeckByKey(key) {
 
 export async function addDeck(entry) {
   const key = uuid();
-  const newDeck = Object.assign({}, entry, { key, cards: [] });
+  const newDeck = Object.assign({}, entry, { key, cards: {} });
   const deckList = await AsyncStorage.getItem(DECK_LIST_KEY);
 
   if (deckList === null) {
@@ -28,18 +28,26 @@ export async function addDeck(entry) {
   return newDeck;
 }
 
-export async function addQuestionToDeck({ questionKey, deckKey, question }) {
-  const decks = JSON.parse(AsyncStorage.getItem(DECK_LIST_KEY));
+export async function addQuestionToDeck({ deckKey, question }) {
+  const decks = JSON.parse(await AsyncStorage.getItem(DECK_LIST_KEY));
+  const newQuestion = Object.assign({}, question, { key: uuid() });
 
   if (decks === null) {
     throw new Error("deck list object was not initialized");
   }
 
   const deck = decks[deckKey];
-  const updatedDeck = Object.assign({}, deck, { [questionKey]: question });
+  const updatedDeck = Object.assign({}, deck, {
+    cards: {
+      ...deck.cards,
+      [newQuestion.key]: newQuestion
+    }
+  });
 
   await AsyncStorage.mergeItem(
     DECK_LIST_KEY,
     JSON.stringify({ [updatedDeck.key]: updatedDeck })
   );
+
+  return newQuestion;
 }

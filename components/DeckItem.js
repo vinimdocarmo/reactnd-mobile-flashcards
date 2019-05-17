@@ -4,16 +4,13 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 export default class DeckItem extends Component {
   render() {
     const { deck } = this.props;
+    const count = Object.values(deck.cards).length;
 
     return (
       <TouchableOpacity onPress={() => this.props.onPress()}>
         <View style={[styles.center, styles.container]}>
           <Text style={styles.title}>{deck.title}</Text>
-          <Text>
-            {deck.cards.length +
-              " " +
-              (deck.cards.lenght > 1 ? "cards" : "card")}
-          </Text>
+          <Text>{count + " " + (count > 1 ? "cards" : "card")}</Text>
         </View>
       </TouchableOpacity>
     );

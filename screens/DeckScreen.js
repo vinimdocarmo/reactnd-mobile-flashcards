@@ -19,12 +19,12 @@ export default class DeckScreen extends React.Component {
       return null;
     }
 
+    const count = Object.values(deck.cards).length;
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{deck.title}</Text>
-        <Text>
-          {deck.cards.length + " " + (deck.cards.lenght > 1 ? "cards" : "card")}
-        </Text>
+        <Text>{count + " " + (count > 1 ? "cards" : "card")}</Text>
         <TouchableOpacity
           style={[styles.button, styles.bgWhite, styles.outline]}
         >
@@ -32,6 +32,11 @@ export default class DeckScreen extends React.Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.bgBlack, styles.textWhite]}
+          onPress={() =>
+            this.props.navigation.navigate("NewQuestionScreen", {
+              deckKey: deck.key
+            })
+          }
         >
           <Text style={styles.buttonText}>Add New Question</Text>
         </TouchableOpacity>
