@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Button, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { getDeckByKey } from "../api";
 
 export default class DeckScreen extends React.Component {
@@ -27,6 +27,11 @@ export default class DeckScreen extends React.Component {
         <Text>{count + " " + (count > 1 ? "cards" : "card")}</Text>
         <TouchableOpacity
           style={[styles.button, styles.bgWhite, styles.outline]}
+          onPress={() =>
+            this.props.navigation.navigate("QuizScreen", {
+              deckKey: deck.key
+            })
+          }
         >
           <Text style={styles.textBlack}>Start Quiz</Text>
         </TouchableOpacity>

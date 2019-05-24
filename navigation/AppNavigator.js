@@ -7,10 +7,10 @@ import {
   HeaderBackButton
 } from "react-navigation";
 import DeckScreen from "../screens/DeckScreen";
-import { Ionicons } from "@expo/vector-icons";
 
 import MainTabNavigator from "./MainTabNavigator";
 import NewQuestionScreen from "../screens/NewQuestionScreen";
+import QuizScreen from "../screens/QuizScreen";
 
 export default createAppContainer(
   createSwitchNavigator({
@@ -31,6 +31,18 @@ export default createAppContainer(
     }),
     NewQuestion: createStackNavigator({
       NewQuestionScreen
+    }),
+    Quiz: createStackNavigator({
+      QuizScreen: {
+        screen: QuizScreen,
+        navigationOptions: ({ navigation }) => ({
+          headerLeft: (
+            <HeaderBackButton
+              onPress={() => navigation.navigate("DeckScreen", { deckKey: navigation.getParam("deckKey") })}
+            />
+          )
+        })
+      }
     })
   })
 );
